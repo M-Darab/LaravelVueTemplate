@@ -3,11 +3,7 @@
 </script>
         
 <template>
-    <div>
-        Guest Layout
-<br>
-        <slot />
-    </div>
+    <slot />
 </template>
 
 
