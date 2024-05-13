@@ -1,13 +1,16 @@
-<template>
-    <div>
-        dashboard
-    </div>
-</template>
-
 <script setup>
+import { defineOptions, reactive } from 'vue'
+import AppLayout from './Layouts/App.vue'
 
+defineOptions({ layout: AppLayout })
 </script>
 
-<style scoped>
+<template>
+    <div>
+        asdasdasd
+    </div>
 
-</style>
+</template>
+
+
+<style scoped></style>
