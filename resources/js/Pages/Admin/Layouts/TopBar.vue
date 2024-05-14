@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineEmits } from 'vue'
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faSignOut } from '@fortawesome/free-solid-svg-icons'
 import { router } from '@inertiajs/vue3';
 
 const emit = defineEmits(['show-sidemenu'])
@@ -53,7 +53,7 @@ const logoutClickHandler = () => {
                                     alt="user photo">
                             </button>
                         </div>
-                        <div class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 border absolute top-14 right-2"
+                        <div class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 border absolute top-12 right-2"
                             :class="{
                                 'hidden': !showUserMenu
                             }" id="dropdown-user">
@@ -70,7 +70,7 @@ const logoutClickHandler = () => {
                                     <p v-on:click="logoutClickHandler"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-600 hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white hover:cursor-pointer"
                                         role="menuitem">
-                                        <font-awesome-icon :icon="faArrowRightFromBracket" class="me-2" />
+                                        <font-awesome-icon :icon="faSignOut" class="me-2" />
                                         Log out
                                     </p>
                                 </li>
