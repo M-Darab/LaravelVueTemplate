@@ -1,7 +1,8 @@
 <script setup>
-import { defineOptions, reactive } from 'vue'
+import { reactive } from 'vue'
 import GuestLayout from '../Layouts/Guest.vue'
 import { router } from '@inertiajs/vue3';
+import FormInput from '../../Components/Forms/Input.vue';
 
 defineOptions({ layout: GuestLayout })
 
@@ -28,11 +29,12 @@ const submitFormHandler = () => {
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" method="POST" v-on:submit.prevent="submitFormHandler">
+
                 <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                     <div class="mt-2">
                         <input type="email" autocomplete="email" required v-model="loginForm.email"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            class="block w-full p-3 border rounded-md shadow-sm">
                     </div>
                 </div>
 
@@ -45,14 +47,12 @@ const submitFormHandler = () => {
                     </div>
                     <div class="mt-2">
                         <input type="password" autocomplete="current-password" required v-model="loginForm.password"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            class="block w-full p-3 border rounded-md shadow-sm">
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" :disabled="loginForm.processing"
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                        in</button>
+                    <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign In</button>
                 </div>
             </form>
         </div>
