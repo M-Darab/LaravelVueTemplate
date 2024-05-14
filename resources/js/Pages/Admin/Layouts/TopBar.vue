@@ -1,5 +1,7 @@
 <script setup>
 import { ref, defineEmits } from 'vue'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { router } from '@inertiajs/vue3';
 
 const emit = defineEmits(['show-sidemenu'])
 
@@ -9,6 +11,10 @@ const showSideBarMenu = ref(false);
 const sideBarMenuHandler = () => {
     showSideBarMenu.value = !showSideBarMenu.value;
     emit('show-sidemenu', showSideBarMenu.value)
+}
+
+const logoutClickHandler = () => {
+    router.get(route('admin.logout'))
 }
 
 </script>
@@ -61,24 +67,12 @@ const sideBarMenuHandler = () => {
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Sign out</a>
+                                    <p v-on:click="logoutClickHandler"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-600 hover:text-white dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white hover:cursor-pointer"
+                                        role="menuitem">
+                                        <font-awesome-icon :icon="faArrowRightFromBracket" class="me-2" />
+                                        Log out
+                                    </p>
                                 </li>
                             </ul>
                         </div>
