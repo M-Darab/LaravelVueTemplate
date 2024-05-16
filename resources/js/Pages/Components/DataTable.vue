@@ -1,12 +1,15 @@
 <script setup>
-defineProps(['data'])
+import { Link } from '@inertiajs/vue3'
 
-const parseLinks = (links) => {
-    
-}
+const props = defineProps(['data'])
+
+const parseLinks = (links) => [links[0], links.pop(), links.slice(1, links.length)]
+
+let [firstLink, lastLink, links] = parseLinks(props.data.links)
 </script>
 
 <template>
+
     <div class="flex justify-end mb-3 ">
         <div class="w-96">
             <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -86,8 +89,8 @@ const parseLinks = (links) => {
                 <div>
                     <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
 
-                        <!-- <a :disabled="data.links[0].active" :class="{
-                            'text-gray-400': !data.links[0].active
+                        <Link :disabled="!firstLink.active" :class="{
+                            'text-gray-400': !firstLink.active
                         }"
                             class="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
                             <span class="sr-only">Previous</span>
@@ -96,33 +99,19 @@ const parseLinks = (links) => {
                                     d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
                                     clip-rule="evenodd" />
                             </svg>
-                        </a> -->
-                        <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
+                        </Link>
+                        <!-- Current: "", Default: "" -->
 
-                       <a :href="link.url" v-for="(link, index) in data.links" :key="index"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">{{ link.label }}</a>
+                        <Link :href="link.url" v-for="(link, index) in links" :key="index" :class="{
+                            'active': link.active,
+                            'not-active': !link.active
+                        }"
+                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">{{
+                                link.label }}</Link>
 
 
-                        <!-- <a href="#" aria-current="page"
-                            class="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">1</a>
-
-                        <a href="#"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">2</a>
-
-                        <a href="#"
-                            class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">3</a>
-                        <span
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
-
-                        <a href="#"
-                            class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">8</a>
-                        <a href="#"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">9</a>
-                        <a href="#"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">10</a> -->
-
-                        <!-- <a :href="data.links.pop().url" :disabled="data.links.pop().active" :class="{
-                            'text-gray-400': data.links.pop().active
+                        <Link :href="lastLink.url" :disabled="lastLink.active" :class="{
+                            'text-gray-400': lastLink.active
                         }"
                             class="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
                             <span class="sr-only">Next</span>
@@ -131,10 +120,20 @@ const parseLinks = (links) => {
                                     d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
                                     clip-rule="evenodd" />
                             </svg>
-                        </a> -->
+                        </Link>
                     </nav>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+.active {
+    @apply z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+}
+
+.not-active {
+    @apply text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0;
+}
+</style>
