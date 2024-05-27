@@ -59,7 +59,13 @@ const columns = computed(() => Object.fromEntries(Object.entries(props.columns).
                                 {{ row[key] ?? '-' }}
                             </slot>
                         </td>
+
                     </template>
+                    <td scope="col" class="px-6 py-4" :class="{
+                        'odd:bg-white even:bg-gray-100': striped === 'columns' || stripedColumns
+                    }">
+                        <slot name="col-action" :data="row" />
+                    </td>
                 </tr>
             </tbody>
         </table>
