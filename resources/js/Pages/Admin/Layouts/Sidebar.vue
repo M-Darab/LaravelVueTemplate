@@ -42,6 +42,7 @@ const extractRoutePath = (routePath) => new URL(routePath).pathname;
 const activeMenuHandler = (menu) => {
 	activeMenu.value = menu;
 };
+
 const dropdownToggleHandler = (dropdown) => {
 	dropdownToggle.value = dropdownToggle.value.length > 0 && dropdownToggle.value === dropdown ? "" : dropdown;
 	activeMenu.value = dropdown;

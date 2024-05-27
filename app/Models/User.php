@@ -46,7 +46,7 @@ class User extends Authenticatable
             'created_at' => 'timestamp',
             'updated_at' => 'timestamp',
 
-            'email_verified_at' => 'datetime',
+            'email_verified_at' => 'timestamp',
             'password' => 'hashed',
         ];
     }

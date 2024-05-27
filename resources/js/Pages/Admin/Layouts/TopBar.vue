@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { faSignOut } from '@fortawesome/free-solid-svg-icons'
 import { router } from '@inertiajs/vue3';
 

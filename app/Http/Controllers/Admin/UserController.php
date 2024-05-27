@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $users = User::all();
         return Inertia::render('Admin/Users/Index', ['users' => $users]);
     }
     
