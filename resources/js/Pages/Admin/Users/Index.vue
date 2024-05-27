@@ -39,7 +39,7 @@ let columns = {
 </script>
 
 <template>
-    <DataTable :data="users" :columns="columns" />
+    <DataTable :data="users" striped-rows :columns="columns" table-hover></DataTable>
 </template>
 
 <style lang="scss" scoped></style>

@@ -17,6 +17,18 @@ const props = defineProps({
             return ['rows', 'columns'].includes(value)
         }
     },
+    stripedRows: {
+        type: [Boolean, null],
+    },
+    stripedColumns: {
+        type: [Boolean, null],
+    },
+    stripedColumns: {
+        type: [Boolean, null],
+    },
+    tableHover: {
+        type: [Boolean, null],
+    },
 })
 
 const columns = computed(() => Object.fromEntries(Object.entries(props.columns).filter(([key, value]) => !value.hidden ?? false)))
@@ -36,12 +48,18 @@ const columns = computed(() => Object.fromEntries(Object.entries(props.columns).
             </thead>
             <tbody>
                 <tr v-for="row in props.data" :key="row.id" class="border-b" :class="{
-                    'odd:bg-white even:bg-gray-100': striped === 'rows'
+                    'odd:bg-white even:bg-gray-100': striped === 'rows' || stripedRows,
+                    'hover:bg-gray-100': tableHover
                 }">
-                    <td v-for="(column, key) in columns" :key="key" scope="col" class="px-6 py-4" :class="{
-                        'odd:bg-white even:bg-gray-100': striped === 'columns'
-                    }">{{ row[key] ?? '-' }}
-                    </td>
+                    <template v-for="(column, key) in columns" :key="key">
+                        <td scope="col" class="px-6 py-4" :class="{
+                            'odd:bg-white even:bg-gray-100': striped === 'columns' || stripedColumns
+                        }">
+                            <slot :name="'col-' + key" :data="row">
+                                {{ row[key] ?? '-' }}
+                            </slot>
+                        </td>
+                    </template>
                 </tr>
             </tbody>
         </table>
