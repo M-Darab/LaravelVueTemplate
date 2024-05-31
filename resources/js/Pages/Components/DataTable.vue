@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
-import { computed, useSlots } from 'vue';
+import { computed, ref, useSlots } from 'vue';
 
 const props = defineProps({
     data: {
@@ -29,11 +29,32 @@ const props = defineProps({
     tableHover: {
         type: [Boolean, null],
     },
+    perPage: {
+        type: [Number, null],
+    },
 })
+
+const currentPage = ref(1);
+
+const totalPages = computed(() => Math.ceil(props.data.length / props.perPage))
 
 const columns = computed(() => Object.fromEntries(Object.entries(props.columns).filter(([key, value]) => !value.hidden ?? false)))
 
 // let [firstLink, lastLink, links] = [props.data.links.shift(), props.data.links.pop(), props.data.links];
+
+const updateCurrentPage = (value) => {
+    if (currentPage.value + value < 1 || currentPage.value + value > totalPages.value) return
+    currentPage.value += value
+}
+const setCurrentPage = (value) => {
+    currentPage.value = value
+}
+
+const paginatedItems = computed(() => {
+    const start = (currentPage.value - 1) * props.perPage;
+    const end = start + props.perPage;
+    return props.data.slice(start, end);
+});
 
 </script>
 
@@ -44,10 +65,14 @@ const columns = computed(() => Object.fromEntries(Object.entries(props.columns).
                 <tr>
                     <th v-for="(column, key) in columns" :key="key" scope="col" class="px-6 py-3"
                         v-html="(column.label ?? key).replaceAll('_', ' ')" />
+
+                    <th v-if="$slots['col-actions']" scope="col" class="px-6 py-3">
+                        Actions
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in props.data" :key="row.id" class="border-b" :class="{
+                <tr v-for="row in paginatedItems" :key="row.id" class="border-b" :class="{
                     'odd:bg-white even:bg-gray-100': striped === 'rows' || stripedRows,
                     'hover:bg-gray-100': tableHover
                 }">
@@ -61,15 +86,44 @@ const columns = computed(() => Object.fromEntries(Object.entries(props.columns).
                         </td>
 
                     </template>
-                    <td scope="col" class="px-6 py-4" :class="{
+
+                    <td v-if="$slots['col-actions']" scope="col" class="px-6 py-4" :class="{
                         'odd:bg-white even:bg-gray-100': striped === 'columns' || stripedColumns
                     }">
-                        <slot name="col-action" :data="row" />
+                        <slot name="col-actions" :data="row" />
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="p-3 flex justify-end" v-if="props.perPage">
+            <nav aria-label="Page navigation example">
+                <ul class="inline-flex -space-x-px gap-2 text-sm">
+                    <li v-on:click="updateCurrentPage(-1)">
+                        <a class="paginate-item">Previous</a>
+                    </li>
+
+                    <li v-for="page in totalPages" :key="page" v-on:click="setCurrentPage(page)">
+                        <a class="paginate-item" :class="{
+                            'paginate-item-active': currentPage === page,
+                            'hover:bg-gray-100 hover:text-gray-700': currentPage !== page
+                        }">{{ page }}</a>
+                    </li>
+
+                    <li v-on:click="updateCurrentPage(1)">
+                        <a class="paginate-item">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.paginate-item {
+    @apply flex items-center justify-center px-3 h-8 leading-tight border rounded-lg cursor-pointer;
+}
+
+.paginate-item-active {
+    @apply bg-indigo-600 text-white;
+}
+</style>

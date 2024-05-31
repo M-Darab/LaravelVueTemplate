@@ -39,7 +39,14 @@ let columns = {
 </script>
 
 <template>
-    <DataTable :data="users" striped-rows :columns="columns" table-hover></DataTable>
+    <DataTable :data="users" striped-rows :columns="columns" table-hover per-page="15">
+        <template v-slot:col-created_at="{ data }">
+            {{ new Date(data.created_at * 1000).toISOString().slice(0, 10)  }}
+        </template> 
+        <template v-slot:col-actions="{ data }">
+            {{ data.email  }}
+        </template>
+    </DataTable>
 </template>
 
 <style lang="scss" scoped></style>
