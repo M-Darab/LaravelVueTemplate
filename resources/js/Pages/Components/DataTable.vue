@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3'
 import { computed, ref, useSlots } from 'vue';
 
+// Props
 const props = defineProps({
     data: {
         required: true,
@@ -30,15 +31,19 @@ const props = defineProps({
         type: [Boolean, null],
     },
     perPage: {
-        type: [Number, null],
+        type: [String, null],
     },
 })
 
+// Reactive States
 const currentPage = ref(1);
 
 const totalPages = computed(() => Math.ceil(props.data.length / props.perPage))
 
+// Computed Properties
 const columns = computed(() => Object.fromEntries(Object.entries(props.columns).filter(([key, value]) => !value.hidden ?? false)))
+
+const paginatedItems = computed(() => props.data.slice(parseInt(parseInt(currentPage.value - 1) * parseInt(props.perPage)), parseInt(parseInt(start) + parseInt(props.perPage))));
 
 // let [firstLink, lastLink, links] = [props.data.links.shift(), props.data.links.pop(), props.data.links];
 
@@ -49,12 +54,6 @@ const updateCurrentPage = (value) => {
 const setCurrentPage = (value) => {
     currentPage.value = value
 }
-
-const paginatedItems = computed(() => {
-    const start = (currentPage.value - 1) * props.perPage;
-    const end = start + props.perPage;
-    return props.data.slice(start, end);
-});
 
 </script>
 
