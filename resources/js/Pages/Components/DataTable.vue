@@ -1,6 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3'
-import { computed, ref, useSlots } from 'vue';
+import { computed, ref } from 'vue';
 
 // Props
 const props = defineProps({
@@ -42,8 +41,6 @@ const columns = computed(() => Object.fromEntries(Object.entries(props.columns).
 
 const paginatedItems = computed(() => props.data.slice(parseInt(parseInt(currentPage.value - 1) * parseInt(props.perPage)), parseInt(parseInt(start) + parseInt(props.perPage))));
 
-// let [firstLink, lastLink, links] = [props.data.links.shift(), props.data.links.pop(), props.data.links];
-
 const updateCurrentPage = (value) => {
     if (currentPage.value + value < 1 || currentPage.value + value > totalPages.value) return
     currentPage.value += value
@@ -73,7 +70,7 @@ const setCurrentPage = (value) => {
                     'hover:bg-gray-100': tableHover
                 }">
                     <template v-for="(column, key) in columns" :key="key">
-                        <td scope="col" class="px-6 py-4" :class="{
+                        <td class="px-6 py-4" :class="{
                             'odd:bg-white even:bg-gray-100': striped === 'columns' || stripedColumns
                         }">
                             <slot :name="'col-' + key" :data="row">
@@ -83,7 +80,7 @@ const setCurrentPage = (value) => {
 
                     </template>
 
-                    <td v-if="$slots['col-actions']" scope="col" class="px-6 py-4" :class="{
+                    <td v-if="$slots['col-actions']" class="px-6 py-4" :class="{
                         'odd:bg-white even:bg-gray-100': striped === 'columns' || stripedColumns
                     }">
                         <slot name="col-actions" :data="row" />

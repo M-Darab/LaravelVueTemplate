@@ -48,5 +48,3 @@ let columns = {
         </template>
     </DataTable>
 </template>
-
-<style lang="scss" scoped></style>

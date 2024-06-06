@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Link } from "@inertiajs/vue3";
 import { reactive, ref } from "vue";
 import { faUsers, faAngleRight, faDashboard } from "@fortawesome/free-solid-svg-icons";
 
