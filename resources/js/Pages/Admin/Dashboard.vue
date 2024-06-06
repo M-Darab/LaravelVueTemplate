@@ -10,6 +10,3 @@ defineOptions({ layout: AppLayout })
     </div>
 
 </template>
-
-
-<style scoped></style>

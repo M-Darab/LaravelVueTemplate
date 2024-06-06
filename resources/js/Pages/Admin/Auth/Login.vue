@@ -2,7 +2,6 @@
 import { reactive } from 'vue'
 import GuestLayout from '../Layouts/Guest.vue'
 import { router } from '@inertiajs/vue3';
-import FormInput from '../../Components/Forms/Input.vue';
 
 defineOptions({ layout: GuestLayout })
 
@@ -58,5 +57,3 @@ const submitFormHandler = () => {
         </div>
     </div>
 </template>
-
-<style></style>

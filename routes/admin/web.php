@@ -17,6 +17,6 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::controller(UserController::class)->name('users.')->prefix('users')->group(function () {
         Route::get('/', 'index')->name('index');
 
-        Route::get('create', 'create')->name('create');
+        Route::get('create', 'index')->name('create');
     });
 });

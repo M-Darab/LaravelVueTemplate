@@ -82,5 +82,3 @@ const logoutClickHandler = () => {
         </div>
     </nav>
 </template>
-
-<style lang="scss" scoped></style>
