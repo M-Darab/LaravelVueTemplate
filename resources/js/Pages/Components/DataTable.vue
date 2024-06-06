@@ -24,9 +24,6 @@ const props = defineProps({
     stripedColumns: {
         type: [Boolean, null],
     },
-    stripedColumns: {
-        type: [Boolean, null],
-    },
     tableHover: {
         type: [Boolean, null],
     },
