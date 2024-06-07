@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         commands: __DIR__ . '/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
         health: '/up',
         then: function () {
 
