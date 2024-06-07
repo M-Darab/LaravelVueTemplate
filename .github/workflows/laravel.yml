@@ -25,7 +25,11 @@ jobs:
             
         - name: Install dependencies with composer
           run: composer update --no-ansi --no-interaction --no-progress
+          
+        - name: Make ENV file
           run: cp .env.example .env
+        
+        - name: Generate Laravel Key
           run: php artisan key:generate
           
         - name: Run tests with phpunit/phpunit
