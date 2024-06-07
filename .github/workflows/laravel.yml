@@ -24,10 +24,9 @@ jobs:
             coverage: xdebug
             
         - name: Install dependencies with composer
-          script: |
-            composer update --no-ansi --no-interaction --no-progress
-            cp .env.example .env
-            php artisan key:generate
+          run: composer update --no-ansi --no-interaction --no-progress
+          run: cp .env.example .env
+          run: php artisan key:generate
           
         - name: Run tests with phpunit/phpunit
           run: php artisan test --coverage-clover=coverage.xml
