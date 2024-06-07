@@ -1,4 +1,4 @@
-12sdf<?php
+<?php
 
 use Illuminate\Support\Str;
 
