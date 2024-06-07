@@ -24,10 +24,13 @@ jobs:
             coverage: xdebug
             
         - name: Install dependencies with composer
-          run: composer update --no-ansi --no-interaction --no-progress
+          script: |
+            composer update --no-ansi --no-interaction --no-progress
+            cp .env.example .env
+            php artisan key:generate
           
         - name: Run tests with phpunit/phpunit
-          run: vendor/bin/phpunit --coverage-clover=coverage.xml
+          run: php artisan test --coverage-clover=coverage.xml
           
         - name: SonarCloud Scan
           uses: SonarSource/sonarcloud-github-action@master
