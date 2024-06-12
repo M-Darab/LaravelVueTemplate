@@ -42,6 +42,10 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'created_at' => 'timestamp',
+            'updated_at' => 'timestamp',
+            'deleted_at' => 'timestamp',
+
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];

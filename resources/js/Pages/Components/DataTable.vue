@@ -39,7 +39,7 @@ const totalPages = computed(() => Math.ceil(props.data.length / props.perPage))
 // Computed Properties
 const columns = computed(() => Object.fromEntries(Object.entries(props.columns).filter(([key, value]) => !value.hidden ?? false)))
 
-const paginatedItems = computed(() => props.data.slice(parseInt(parseInt(currentPage.value - 1) * parseInt(props.perPage)), parseInt(parseInt(start) + parseInt(props.perPage))));
+const paginatedItems = computed(() => props.data.slice(parseInt(parseInt(currentPage.value - 1) * parseInt(props.perPage)), parseInt((parseInt(currentPage.value - 1) * parseInt(props.perPage)) + parseInt(props.perPage))));
 
 const updateCurrentPage = (value) => {
     if (currentPage.value + value < 1 || currentPage.value + value > totalPages.value) return
@@ -88,7 +88,10 @@ const setCurrentPage = (value) => {
                 </tr>
             </tbody>
         </table>
-        <div class="p-3 flex justify-end" v-if="props.perPage">
+        <div class="p-3 flex justify-between align-middle" v-if="props.perPage">
+            <span>
+                Showing {{ props.perPage * currentPage }} out of {{ props.data.length }} results
+            </span>
             <nav aria-label="Page navigation example">
                 <ul class="inline-flex -space-x-px gap-2 text-sm">
                     <li v-on:click="updateCurrentPage(-1)">
